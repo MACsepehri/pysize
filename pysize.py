@@ -80,3 +80,7 @@ def is_binary(path: str):
 
 def total_charactor(path: str):
     return len(open(path, "r").read()) if not is_binary(path) else len(open(path, "rb").read())
+
+def read_byte(file: TextIOWrapper, total_bytes: int):
+    all_bytes = 1024 * total_bytes
+    return file.read(all_bytes)
