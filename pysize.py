@@ -81,6 +81,10 @@ def is_binary(path: str):
 def total_charactor(path: str):
     return len(open(path, "r").read()) if not is_binary(path) else len(open(path, "rb").read())
 
-def read_byte(file: TextIOWrapper, total_bytes: int):
-    all_bytes = 1024 * total_bytes
-    return file.read(all_bytes)
+def read_byte_str(file: TextIOWrapper, total_bytes: int = 0, read_all: bool = False):
+    if read_all:
+        data_bytes = file.read()
+        return data_bytes.decode('utf-8')
+    file.seek(0)
+    data_bytes = file.read(total_bytes)
+    return data_bytes.decode('utf-8')
