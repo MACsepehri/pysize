@@ -72,5 +72,11 @@ def is_binary(path: str):
         if b'\0' in chunk:
             return True
 
-    non_printable = sum(1 for byte in chunk if byte < 32 and byte not in [9, 10, 13])
-    return non_printable / len(chunk) > 0.30
+    try:
+        non_printable = sum(1 for byte in chunk if byte < 32 and byte not in [9, 10, 13])
+        return non_printable / len(chunk) > 0.30
+    except:
+        raise NoContentError("Given file doesn't have any contents (empty). Total Exceptions: 2 (NoContentError, ZeroDivisionError)")
+
+def total_charactor(path: str):
+    return len(open(path, "r").read()) if not is_binary(path) else len(open(path, "rb").read())
